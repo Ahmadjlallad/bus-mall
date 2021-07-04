@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 1080px;
+  margin: 0 auto;
+}
+header {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  box-shadow: 7px 1px 5px #b0b5af, 4px -4px 5px #b0b5af;
+  margin: 35px 0;
+}
+header h1 {
+  margin: 50px;
+}
+main {
+  /* background: #cdb4db; */
+  background: #caffbf;
+  box-shadow: 7px 1px 5px #b0b5af, 4px -4px 5px #b0b5af;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  height: 930px;
+}
+.sec-img {
+  width: 218px;
+  margin: auto 0;
+  height: 400px;
+  border-radius: 5px 10px 10px 5px;
+  cursor: pointer;
+}
+.sec-img:hover {
+  border: 1px solid #caffbf;
+  border-radius: 15px;
+  box-shadow: 7px 1px 5px #4e3e3e69, 4px -4px 5px #ff06064f;
+}
+#sec-one {
+  flex-shrink: 0;
+  width: calc(245px * 3);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+  height: 600px;
+}
+.p-sec {
+  width: 65%;
+  position: relative;
+  bottom: 44px;
+  text-align: justify;
+}
+.p-sec p {
+  border: #caffbf6e 3px solid;
+  position: absolute;
+  bottom: 1px;
+  margin-right: 40px;
+  font-size: 23px;
+  line-height: 25px;
+  font-size: 19px;
+  font-weight: bold;
+}
+/* display: flex;
+  width: 70%;
+  flex-direction: row;
+  align-items: flex-end;
+} */
+aside {
+  margin: 20px 0;
+  margin-right: 7px;
+  width: 336px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+footer {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  box-shadow: 7px 1px 5px #b0b5af, 4px -4px 5px #b0b5af;
+  padding: 30px;
+  justify-content: center;
+  margin: 35px 0;
+}
+ul {
+  border: #caffbf6e 1px solid;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 19px;
+  font-weight: bold;
+}
+ul :hover,
+.p-sec:hover {
+  background-color: #78827541;
+}
+li {
+  font-family: "Teko", sans-serif;
+  padding: 8px;
+  text-transform: capitalize;
+}
+li::before {
+  content: "";
+  border: 2px solid;
+  background-color: teal;
+  border-color: green;
+  margin-right: 7px;
+}
+button {
+  background-color: #33ee04;
+  justify-content: center;
+  border: 1px solid #b92d14c4;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 67px 15px 100px 50px;
+}
+h3 {
+  margin: 15px 13px;
+}
+button:hover {
+  border-radius: 67px 15px 100px 50px;
+  transition: ease-in-out 400ms;
+  padding: 20px 40px;
+  box-shadow: 7px 1px 5px #4e3e3e69, 4px -4px 5px #ff06064f;
+}
