@@ -18,23 +18,46 @@ function objectMaker() {
 }
 
 // =========> function render
-
+let ArrayOfRandomResults = [];
 function render() {
   _img_one = randomMaker();
   _img_two = randomMaker();
   _img_three = randomMaker();
+
+  let resultOfInclude =
+    ArrayOfRandomResults.includes(_img_one) ||
+    ArrayOfRandomResults.includes(_img_two) ||
+    ArrayOfRandomResults.includes(_img_three);
+  console.log(
+    `\u001b[32m new one ${_img_one} Tow ${_img_two} Three ${_img_three} \u001b[0m `
+  );
+  console.log(`\u001b[33m old Array Of Random Results ${ArrayOfRandomResults}`);
+  console.log(`\u001b[36m result Of Include ${resultOfInclude}`);
   while (
     _img_one === _img_three ||
     _img_one === _img_two ||
-    _img_two === _img_three
+    _img_two === _img_three ||
+    resultOfInclude
   ) {
     if (_img_one === _img_two || _img_one === _img_three) {
       _img_one = randomMaker();
     } else if (_img_two === _img_three) {
       _img_two = randomMaker();
+    } else if (ArrayOfRandomResults.includes(_img_one)) {
+      _img_one = randomMaker();
+    } else if (ArrayOfRandomResults.includes(_img_two)) {
+      _img_two = randomMaker();
+    } else if (ArrayOfRandomResults.includes(_img_three)) {
+      _img_three = randomMaker();
     }
+    resultOfInclude =
+      ArrayOfRandomResults.includes(_img_one) ||
+      ArrayOfRandomResults.includes(_img_two) ||
+      ArrayOfRandomResults.includes(_img_three);
+    console.log(`\u001b[35m after result Of Include ${resultOfInclude}`);
   }
-  let ArrayOfRandomResults = [_img_one, _img_two, _img_three];
+  ArrayOfRandomResults = [_img_one, _img_two, _img_three];
+  console.log(`\u001b[33m after result Of Include ${ArrayOfRandomResults}`);
   for (let i = 0; i < 3; i++) {
     document.getElementsByClassName("sec-img")[i].src =
       BusMall.ArrayOfObject[ArrayOfRandomResults[i]].Path;
@@ -72,19 +95,58 @@ function eventSelectionHandler(event) {
   }
 }
 
+// =========> function chart
+
+function chart() {
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: arrayOfNames,
+      datasets: [
+        {
+          label: "Selected photo",
+          data: arrayOfSelected,
+          backgroundColor: ["#2a9d8f"],
+
+          borderWidth: 1,
+          borderRadius: 3,
+        },
+        {
+          label: "Shown photo",
+          data: arrayOfShown,
+          backgroundColor: ["#e63946"],
+
+          borderWidth: 1,
+          borderRadius: 3,
+        },
+      ],
+    },
+  });
+}
+
 // =========> function resultHandler
 
 function resultHandler() {
   for (let i = 0; i < BusMall.ArrayOfObject.length; i++) {
-    const li = document.createElement("li");
-    document.querySelector(".sec2-li").appendChild(li);
-    li.textContent = `${BusMall.ArrayOfObject[i].Name} had ${BusMall.ArrayOfObject[i].selected} votes, and was seen ${BusMall.ArrayOfObject[i].shown} times.`;
+    arrayOfSelected.push(BusMall.ArrayOfObject[i].selected);
+    arrayOfShown.push(BusMall.ArrayOfObject[i].shown);
+    arrayOfNames.push(BusMall.ArrayOfObject[i].Name);
+    // const li = document.createElement("li");
+    // document.querySelector(".sec2-li").appendChild(li);
+    // li.textContent = `${BusMall.ArrayOfObject[i].Name} had ${BusMall.ArrayOfObject[i].selected} votes, and was seen ${BusMall.ArrayOfObject[i].shown} times.`;
   }
+  console.log(arrayOfSelected);
+  console.log(arrayOfShown);
+  console.log(BusMall.ArrayOfObject);
+  chart();
   document.querySelector(".btn").removeEventListener("click", resultHandler);
 }
 
 // =========> important globe var
-
+let arrayOfSelected = [];
+let arrayOfShown = [];
+let arrayOfNames = [];
 let _img_one;
 let _img_two;
 let _img_three;
