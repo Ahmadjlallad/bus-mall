@@ -28,11 +28,11 @@ function render() {
     ArrayOfRandomResults.includes(_img_one) ||
     ArrayOfRandomResults.includes(_img_two) ||
     ArrayOfRandomResults.includes(_img_three);
-  console.log(
-    `\u001b[32m new one ${_img_one} Tow ${_img_two} Three ${_img_three} \u001b[0m `
-  );
-  console.log(`\u001b[33m old Array Of Random Results ${ArrayOfRandomResults}`);
-  console.log(`\u001b[36m result Of Include ${resultOfInclude}`);
+  // console.log(
+  //   `\u001b[32m new one ${_img_one} Tow ${_img_two} Three ${_img_three} \u001b[0m `
+  // );
+  // console.log(`\u001b[33m old Array Of Random Results ${ArrayOfRandomResults}`);
+  // console.log(`\u001b[36m result Of Include ${resultOfInclude}`);
   while (
     _img_one === _img_three ||
     _img_one === _img_two ||
@@ -54,10 +54,10 @@ function render() {
       ArrayOfRandomResults.includes(_img_one) ||
       ArrayOfRandomResults.includes(_img_two) ||
       ArrayOfRandomResults.includes(_img_three);
-    console.log(`\u001b[35m after result Of Include ${resultOfInclude}`);
+    // console.log(`\u001b[35m after result Of Include ${resultOfInclude}`);
   }
   ArrayOfRandomResults = [_img_one, _img_two, _img_three];
-  console.log(`\u001b[33m after result Of Include ${ArrayOfRandomResults}`);
+  // console.log(`\u001b[33m after result Of Include ${ArrayOfRandomResults}`);
   for (let i = 0; i < 3; i++) {
     document.getElementsByClassName("sec-img")[i].src =
       BusMall.ArrayOfObject[ArrayOfRandomResults[i]].Path;
@@ -128,17 +128,43 @@ function chart() {
 // =========> function resultHandler
 
 function resultHandler() {
-  for (let i = 0; i < BusMall.ArrayOfObject.length; i++) {
-    arrayOfSelected.push(BusMall.ArrayOfObject[i].selected);
-    arrayOfShown.push(BusMall.ArrayOfObject[i].shown);
-    arrayOfNames.push(BusMall.ArrayOfObject[i].Name);
-    // const li = document.createElement("li");
-    // document.querySelector(".sec2-li").appendChild(li);
-    // li.textContent = `${BusMall.ArrayOfObject[i].Name} had ${BusMall.ArrayOfObject[i].selected} votes, and was seen ${BusMall.ArrayOfObject[i].shown} times.`;
+  // using the function to get state of the Ls if there are No kye Value in the ls do if statement save the shown and selected numbers to arrays and than set the LS this is for the first time
+
+  if (!getLs()) {
+    for (let i = 0; i < BusMall.ArrayOfObject.length; i++) {
+      arrayOfSelected.push(BusMall.ArrayOfObject[i].selected);
+      arrayOfShown.push(BusMall.ArrayOfObject[i].shown);
+      arrayOfNames.push(BusMall.ArrayOfObject[i].Name);
+      // const li = document.createElement("li");
+      // document.querySelector(".sec2-li").appendChild(li);
+      // li.textContent = `${BusMall.ArrayOfObject[i].Name} had ${BusMall.ArrayOfObject[i].selected} votes, and was seen ${BusMall.ArrayOfObject[i].shown} times.`;
+    }
+    setLs(BusMall.ArrayOfObject);
+
+    //if there are value Do else add the value of local storage that stored in varStoreDataLs to ArrayOfObjects to The arrays that responsive to make the chart than stored values of the show and selected arrays in ArrayOfObjects
+  } else {
+    get = localStorage.getItem("BusMall");
+    for (let i = 0; i < BusMall.ArrayOfObject.length; i++) {
+      arrayOfNames.push(BusMall.ArrayOfObject[i].Name);
+      arrayOfSelected.push(
+        BusMall.ArrayOfObject[i].selected + varStoreDataLs[i].selected
+      );
+      arrayOfShown.push(
+        BusMall.ArrayOfObject[i].shown + varStoreDataLs[i].shown
+      );
+      varStoreDataLs[i].selected = arrayOfSelected[i];
+      varStoreDataLs[i].shown = arrayOfShown[i];
+    }
+
+    console.table("shown & selected", arrayOfSelected, arrayOfShown);
+    console.log(BusMall.ArrayOfObject);
+    console.table("get", varStoreDataLs);
+    setLs(varStoreDataLs);
   }
-  console.log(arrayOfSelected);
-  console.log(arrayOfShown);
-  console.log(BusMall.ArrayOfObject);
+
+  // console.log(arrayOfSelected);
+  // console.log(arrayOfShown);
+  // console.log(BusMall.ArrayOfObject);
   chart();
   document.querySelector(".btn").removeEventListener("click", resultHandler);
 }
@@ -195,3 +221,25 @@ document
   .querySelector("#sec-one")
   .addEventListener("click", eventSelectionHandler);
 document.querySelector(".btn").addEventListener("click", resultHandler);
+
+// set local storage kye value
+
+function setLs(DataSet) {
+  let setConverted = JSON.stringify(DataSet);
+  let set = localStorage.setItem("BusMall", setConverted);
+}
+let get = localStorage.getItem("BusMall");
+let getConverted = JSON.parse(get);
+
+// var for save and modified the local storage
+
+let varStoreDataLs = getConverted;
+
+// get the state of local storage
+
+function getLs() {
+  let getConvert = JSON.parse(get);
+  return getConvert;
+}
+
+console.log(varStoreDataLs);
